@@ -1,27 +1,31 @@
-import Box from './components/Box';
+import { useState } from 'react';
 import BoxList from './components/BoxList';
 
+const FAKE_DATA = [
+  { color: 'goldenrod', luckyNumber: 1, size: 'small' },
+  { color: 'red', luckyNumber: 2, size: 'large' },
+  { color: 'green', luckyNumber: 3, size: 'medium' },
+  { luckyNumber: 4 },
+];
+
 function MagicBoxFeature() {
-  const box = {
-    color: 'red',
-    luckyNumber: 19,
+  const [boxList, setBoxList] = useState(FAKE_DATA);
+
+  const handleBoxClick = (box, idx) => {
+    console.log(box, idx);
+
+    // Remove Box From List
+    const newBoxList = [...boxList];
+    newBoxList.splice(idx, 1);
+
+    setBoxList(newBoxList);
   };
 
-  const boxList = [
-    { color: 'goldenrod', luckyNumber: 1 },
-    { color: 'red', luckyNumber: 2 },
-    { color: 'green', luckyNumber: 3 },
-    { color: 'black', luckyNumber: 4 },
-  ];
   return (
     <div>
       <h1>Magic Box</h1>
 
-      <Box color="green" luckyNumber={11} />
-      <Box color={box.color} luckyNumber={box.luckyNumber} />
-      <Box luckyNumber={13} />
-
-      <BoxList boxList={boxList} />
+      <BoxList boxList={boxList} onBoxClick={handleBoxClick} />
     </div>
   );
 }

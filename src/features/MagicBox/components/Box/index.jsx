@@ -1,22 +1,33 @@
 import './Box.scss';
 import PropTypes from 'prop-types';
 
-function Box(props) {
-  const { color, luckyNumber } = props;
+const sizeMap = {
+  small: '100px',
+  medium: '150px',
+  large: '200px',
+};
+function Box({ box, onClick }) {
+  const { color = 'black', luckyNumber, size = 'medium' } = box;
+  const height = sizeMap[size];
 
+  const handleRemoveClick = () => {
+    if (onClick) onClick(box);
+  };
   return (
-    <div className="box" style={{ backgroundColor: color }}>
+    <div className="box" style={{ backgroundColor: color, height }}>
       {luckyNumber}
+      <button onClick={handleRemoveClick}>Remove</button>
     </div>
   );
 }
 
 Box.propTypes = {
-  color: PropTypes.string,
-  luckyNumber: PropTypes.number.isRequired,
+  box: PropTypes.object,
+  onClick: PropTypes.func,
 };
 Box.defaultProps = {
-  color: 'black',
+  box: {},
+  onClick: null,
 };
 
 export default Box;
