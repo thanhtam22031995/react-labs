@@ -1,0 +1,27 @@
+.box {
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  position: relative;
+
+  color: white;
+  font-weight: 300;
+  font-size: 3rem;
+
+  border-radius: 5px;
+
+  & > button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 5px;
+    background-color: blanchedalmond;
+    opacity: 0.5;
+
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid;
+  }
+}

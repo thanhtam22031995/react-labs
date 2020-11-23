@@ -1,0 +1,20 @@
+.counter {
+
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+
+  & > p {
+    font-size: 32px;
+  }
+
+  & > button {
+    
+    cursor: pointer;
+    margin: 10px;
+    padding: 5px;
+    background-color: goldenrod;
+    border: 1px solid black;
+    border-radius: 5px;
+  }
+}
