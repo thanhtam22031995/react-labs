@@ -1,0 +1,23 @@
+.timer {
+  $box-size: 200px;
+
+  display: inline-flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+
+  margin: 1rem;
+  width: $box-size;
+  height: $box-size;
+  border: 2px solid goldenrod;
+  border-radius: 0.5rem;
+
+  font-size: 3rem;
+  font-weight: bold;
+  transition: all 0.25s ease-in-out;
+}
+
+.timer.finished {
+  color: white;
+  background-color: goldenrod;
+}

@@ -1,75 +1,42 @@
-import { useEffect, useState } from 'react';
-import postApi from './api/postApi';
-import studentApi from './api/studentApi';
+import CounterFeature from 'features/Counter';
+import { useState } from 'react';
+import { Route, Switch } from 'react-router-dom';
+import ThemeContext, { themes } from 'themeContext';
 import './App.scss';
-import Button from './components/Button';
-import Counter from './components/Counter';
+import Footer from './components/Footer';
+import Header from './components/Header';
+import NotFound from './components/NotFound';
+import HomePage from './features/Home';
 import MagicBoxFeature from './features/MagicBox';
+import PostsFeature from './features/Post';
+import RenderingFeature from './features/Rendering';
+import StudentFeature from './features/Student';
+import TodoFeature from './features/Todo';
 
 function App() {
-  const [loading, setLoading] = useState(true);
-  const [postList, setPostList] = useState([]);
-
-  const [fetchingStudent, setfetchingStudent] = useState(true);
-  const [studentList, setStudentList] = useState([]);
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const { data } = await postApi.getAll({ _page: 1, _limit: 10 });
-
-        setPostList(data);
-      } catch (error) {
-        console.log('Failed to fetch post list', error);
-      }
-      setLoading(false);
-    })();
-  }, []);
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const { data } = await studentApi.getAll({ _page: 1, _limit: 10 });
-
-        setStudentList(data);
-      } catch (error) {
-        console.log('Failed to fetch student list', error);
-      }
-      setfetchingStudent(false);
-    })();
-  }, []);
+  const [currentTheme, setCurrentTheme] = useState(themes.light);
+  const value = { currentTheme, setCurrentTheme };
 
   return (
     <div>
-      {loading && <p>loading ....</p>}
+      <ThemeContext.Provider value={value}>
+        <Header />
 
-      <ul>
-        {postList.map((post) => (
-          <li key={post.id}>
-            {post.title}
-            {/* <img src={post.imageUrl} alt="" /> */}
-          </li>
-        ))}
-      </ul>
+        {/* Routing Content */}
+        <Switch>
+          <Route exact path="/" component={HomePage}></Route>
+          <Route path="/box" component={MagicBoxFeature}></Route>
+          <Route path="/rendering" component={RenderingFeature}></Route>
+          <Route path="/students" component={StudentFeature}></Route>
+          <Route path="/posts" component={PostsFeature}></Route>
+          <Route path="/todos" component={TodoFeature}></Route>
+          <Route path="/counter" component={CounterFeature}></Route>
 
-      {fetchingStudent && <p>Loading ...</p>}
-      <ul>
-        {studentList.map((student) => (
-          <li key={student.id}>{student.age}</li>
-        ))}
-      </ul>
-      <Counter />
+          <Route component={NotFound}></Route>
+        </Switch>
 
-      <Button>Hello</Button>
-      <Button
-        onClick={() => {
-          alert('haha');
-        }}
-      >
-        Click To Show Alert
-      </Button>
-
-      <MagicBoxFeature />
+        <Footer />
+      </ThemeContext.Provider>
     </div>
   );
 }

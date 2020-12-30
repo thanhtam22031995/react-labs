@@ -1,0 +1,23 @@
+.header {
+  padding: 0.5rem 1rem;
+
+  &__menu {
+    margin: 0 -0.5rem;
+    display: flex;
+    flex-flow: row wrap;
+    list-style-type: none;
+
+    & > li {
+      padding: 0 0.5rem;
+    }
+
+    & > li > a {
+      text-decoration: none;
+    }
+
+    & > li > .active {
+      color: deeppink;
+      transition: all 0.25;
+    }
+  }
+}
